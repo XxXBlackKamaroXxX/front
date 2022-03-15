@@ -1,13 +1,15 @@
 <template>
-    <div class="user-table">
-        <div class="user-table_element">
-            <p>Date</p>
-            <p>Login time</p>
-            <p>Logout time</p>
-            <p>Time spent on system</p>
-            <p>Unsuccessful logout reason</p>
-        </div>
-        <UserInfoTableElement v-for="info in log" v-bind:key="info.user_id" v-bind:info="info"></UserInfoTableElement>
+    <div class="user__data">
+        <table class="data__table">
+             <tr class="table__header">
+                <td>Date</td>
+                <td>Login time</td>
+                <td>Logout time</td>
+                <td>Time spent on system</td>
+                <td>Unsuccessful logout reason</td>
+            </tr>
+            <UserInfoTableElement v-for="info in log" v-bind:key="info.user_id" v-bind:info="info"></UserInfoTableElement>
+        </table>
     </div>
 </template>
 

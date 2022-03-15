@@ -4,6 +4,7 @@
             <button class="btn addUserBtn" @click="showAddUserModal">Add User</button>
             <AddUserModal v-model:show="addUserModalVisible"></AddUserModal>
             <button class="btn exitBtn" @click="adminLogout">Exit</button>
+            <button @click="ManageFlightRedirect">Manage Flight</button>
         </div>
         <div class="offices">
             <span class="text">Office:</span>
@@ -32,7 +33,6 @@ import AddUserModal from '../components/adminComp/AddUserModal.vue'
 import EditRoleModal from '../components/adminComp/EditRoleModal.vue'
 import AbleUserModal from '../components/adminComp/AbleUserModal.vue'
 import axios from 'axios'
-
 export default {
   components: {
     Table,
@@ -62,9 +62,7 @@ export default {
         const birthday = this.users[i].birthdate.split('-')
         const dob = new Date(birthday[0], birthday[1] - 1, birthday[2])
         const dobnow = new Date(today.getFullYear(), dob.getMonth(), dob.getDate())
-
         this.users[i].age = today.getFullYear() - dob.getFullYear()
-
         if (today < dobnow) {
           this.users[i].age = this.users[i].age - 1
         }
@@ -89,6 +87,9 @@ export default {
     },
     showAbleUserModal () {
       this.ableUserModalVisible = true
+    },
+    ManageFlightRedirect () {
+      this.$router.push({ name: 'manageFlight' })
     }
   }
 }

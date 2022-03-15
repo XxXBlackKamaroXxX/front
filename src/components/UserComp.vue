@@ -1,8 +1,6 @@
 <template>
-    <div>
       <UserHeader v-bind:userdt="user"/>
       <UserInfoTable v-bind:log="userLogs"/>
-    </div>
 </template>
 
 <script>

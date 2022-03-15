@@ -1,12 +1,11 @@
 <template>
-  <div class="user__info-table_element">
-    <p>{{info.logsDate}}</p>
-    <p>{{info.loginTime}}</p>
-    <p></p>
-    <p></p>
-    <p></p>
-    <p></p>
-  </div>
+  <tr class="user_data-table_element">
+    <td>{{info.logsDate}}</td>
+    <td>{{info.loginTime}}</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
 </template>
 
 <script>
@@ -20,17 +19,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-    .user__info-table_element {
-      padding: 0.5rem 0.5rem;
-      display: flex;
-      justify-content: space-between;
-    }
-    .user__info-table_element p {
-      min-width: 5rem;
-    }
-    .user__info-table_element p:first-child {
-      min-width: 2rem;
-    }
-</style>

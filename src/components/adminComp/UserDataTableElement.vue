@@ -1,14 +1,12 @@
 <template>
-  <table class="user_data-table_element">
-    <tr>
-      <td>{{dt.firstname}}</td>
-      <td>{{dt.lastname}}</td>
-      <td>{{dt.age}}</td>
-      <td>{{dt.role}}</td>
-      <td>{{dt.email}}</td>
-      <td>{{dt.title}}</td>
-    </tr>
-  </table>
+  <tr class="user_data-table_element">
+    <td>{{dt.firstname}}</td>
+    <td>{{dt.lastname}}</td>
+    <td>{{dt.age}}</td>
+    <td>{{dt.role}}</td>
+    <td>{{dt.email}}</td>
+    <td>{{dt.title}}</td>
+  </tr>
 </template>
 
 <script>
@@ -23,14 +21,13 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
     .user_data-table_element {
         width: 100%;
+
         text-align: center;
-        border-collapse: collapse;
     }
-    .user_data-table_element tr td {
-      padding-top: 1rem;
-      min-width: 5rem;
+    .user_data-table_element td {
+      padding: 0.25rem 0;
     }
 </style>

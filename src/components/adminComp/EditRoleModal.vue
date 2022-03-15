@@ -18,17 +18,11 @@
           <span>Office</span>
 
           <select class="user__info__input" v-model="officeTitle">
-
             <option>All offices</option>
-
             <option>Abu Dhabi</option>
-
             <option>Cairo</option>
-
             <option>Bahrain</option>
-
             <option>Doha</option>
-
             <option>Riyadh</option>
           </select>
         </div>

@@ -4,6 +4,7 @@ import LoginFormView from '../views/LoginFormView.vue'
 import AboutView from '../views/About.vue'
 import UserView from '../views/User.vue'
 import AdminView from '../views/AdminWindow.vue'
+import ManageFlight from '../views/ManageFlight.vue'
 
 const routes = [
   {
@@ -26,6 +27,11 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: AdminView
+  },
+  {
+    path: '/manageFlight',
+    name: 'manageFlight',
+    component: ManageFlight
   }
 ]
 
