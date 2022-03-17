@@ -38,12 +38,14 @@ export default {
       padding: 1rem 2rem;
       overflow: hidden;
     }
+
     .exit__btn {
         margin-bottom: 1rem;
         background: none;
         border: none;
         font-size: 1rem;
     }
+
     hr {
         margin-bottom: 1rem;
         border-style: dashed;
@@ -51,17 +53,21 @@ export default {
         margin-inline-start: -1000rem;
         margin-inline-end: -1000rem;
     }
+
     .exit__btn:hover {
         text-decoration: underline;
         cursor: pointer;
     }
+
     .header__greetings {
         margin-bottom: 1rem;
     }
+
     .header__logs-info {
         display: flex;
         justify-content:space-evenly;
     }
+
     .header__logs-info p:first-child {
         padding-left: 25%;
     }

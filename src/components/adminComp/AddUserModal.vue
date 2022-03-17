@@ -1,24 +1,22 @@
 <template>
   <div class="modal" v-if="show">
     <div class="modal__content">
-      <form @submit="addUser">
+      <form @submit.prevent="addUser">
         <div class="form__element">
-          <span>Email address</span> <input class="user__info__input" type="email" placeholder="Email" v-model="email">
+          <input class="user__info__input" type="email" placeholder="Email" v-model="email">
         </div>
 
         <div class="form__element">
-          <span>First name</span> <input class="user__info__input" type="text" placeholder="First name" v-model="firstname">
+          <input class="user__info__input" type="text" placeholder="First name" v-model="firstname">
         </div>
 
         <div class="form__element">
-          <span>Last name</span> <input class="user__info__input" type="text" placeholder="Last name" v-model="lastname">
+          <input class="user__info__input" type="text" placeholder="Last name" v-model="lastname">
         </div>
 
         <div class="form__element">
-          <span>Office</span>
-
-          <select class="user__info__input" v-model="officeTitle">
-            <option>All offices</option>
+          <select class="user__info__input select" v-model="officeTitle">
+            <option>Select office</option>
             <option>Abu Dhabi</option>
             <option>Cairo</option>
             <option>Bahrain</option>
@@ -28,15 +26,15 @@
         </div>
 
         <div class="form__element">
-          <span>Birthdate</span> <input class="user__info__input" type="date" placeholder="Birthdate" v-model="birthdate">
+          <input class="user__info__input date-time" type="date" placeholder="Birthdate" v-model="birthdate">
         </div>
 
         <div class="form__element">
-          <span>Password</span> <input class="user__info__input" type="password" placeholder="Password" v-model="password">
+          <input class="user__info__input" type="password" placeholder="Password" v-model="password">
         </div>
 
         <div class="buttons">
-          <button class="btn save">Save</button>
+          <button class="btn save">Add</button>
           <button class="btn cancel" @click.prevent="hideModal">Close</button>
         </div>
       </form>
@@ -108,54 +106,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  .modal {
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.5);
-    position: fixed;
-    display: flex;
-  }
-  .modal__content {
-    margin: auto;
-    background: white;
-    border-radius: 1rem;
-    min-height: 35rem;
-    min-width: 30rem;
-    padding: 1.5rem;
-  }
-  .form__element {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin: 3rem 2rem;
-  }
-  span {
-    font-size: 1.5rem;
-  }
-  .user__info__input {
-    margin-left: 1rem;
-    padding: 0.5rem;
-    min-width: 15rem;
-    font-size: 1rem;
-  }
-  .buttons {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0.5rem;
-  }
-  .btn {
-    padding: 0.5rem 2rem;
-    background: transparent;
-    font-size: 1rem;
-    transition: background 1s;
-  }
-  .btn:hover {
-    cursor: pointer;
-    background: rgb(202, 202, 202);
-  }
-</style>

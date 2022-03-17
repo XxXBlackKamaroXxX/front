@@ -1,80 +1,79 @@
 <template>
-    <div>
-        <div class="manage__flight__header">
-          <h3>
-              Filter by
-          </h3>
-          <hr />
-          <div class="header_params_block first_block">
-              <div>
-                  From
-                  <select>
-                      <option>[ Airport list ]</option>
-                      <option v-for="airport in headerData" v-bind:key="airport.airport_id">{{airport.iata}}</option>
-                  </select>
-              </div>
-              <div>
-                  To
-                  <select>
-                      <option>[ Airport list ]</option>
-                      <option v-for="airport in headerData" v-bind:key="airport.airport_id">{{airport.iata}}</option>
-                  </select>
-              </div>
-              <div>
-                  Sort by
-                  <select>
-                      <option>Date-time</option>
-                      <option>Price</option>
-                      <option>Confirmed / Not Confirmed</option>
-                  </select>
-              </div>
-          </div>
-          <div class="header_params_block second_block">
-              <div>
-                  Outbound
-                <input v-model="dateInput" type="text" placeholder="[ dd / mm / yyyy]">
-              </div>
-              <div>
-                  Flight Number
-                  <input v-model="flightNumberInput" type="text" placeholder="[ xxxx ]">
-              </div>
-              <div>
-                <button @click="GetOutputDataParams">Apply</button>
-              </div>
-          </div>
-          <hr />
-      </div>
-      <div class="manage_table">
-        <table>
-            <tr>
-                <td>Date</td>
-                <td>Time</td>
-                <td>From</td>
-                <td>To</td>
-                <td>Flight Number</td>
-                <td>Aircraft</td>
-                <td>Economy price</td>
-                <td>business price</td>
-                <td>First class price</td>
-            </tr>
-            <manageBodyTableEl
-              v-for="dt in bodyData" v-bind:key="dt.shedule_id" v-bind:dt="dt"
-            />
-        </table>
-      </div>
-      <div class="manage__flight__footer">
-        <div class="left_btns">
-            <button  @click="showCancelFlightModal">Cancel Flight</button>
-            <CancelFlightModal v-model:ClFModalShow="cancelFlightModalVisible"></CancelFlightModal>
+  <div class="manage__flight__header">
+      <h3>Filters</h3>
 
-            <button  @click="showConfirmFlightModal">Confirm Flight</button>
-            <ConfirmFlightModal v-model:CfmFModalShow="confirmFlightModalVisible"></ConfirmFlightModal>
+      <hr />
 
-            <button  @click="showEditFlightModal">Edit Flight</button>
-            <EditFlightModal v-model:EFModalShow="editFlightModalVisible"></EditFlightModal>
-        </div>
+      <div class="header_params_block">
+          <div>From
+              <select>
+                  <option>All</option>
+                  <option v-for="airport in headerData" v-bind:key="airport.airport_id">{{airport.iata}}</option>
+              </select>
+          </div>
+
+          <div>To
+              <select>
+                  <option>All</option>
+                  <option v-for="airport in headerData" v-bind:key="airport.airport_id">{{airport.iata}}</option>
+              </select>
+          </div>
+
+          <div>Sort by
+              <select>
+                  <option>Date-time</option>
+                  <option>Price</option>
+                  <option>Confirmed / Not Confirmed</option>
+              </select>
+          </div>
+
+          <div>Outbound
+            <input v-model="dateInput" type="text" placeholder="[ dd / mm / yyyy]">
+          </div>
+
+          <div>Flight Number
+              <input v-model="flightNumberInput" type="text" placeholder="[ xxxx ]">
+          </div>
+
+          <div>
+            <button class="btn" @click="GetOutputDataParams">Apply</button>
+          </div>
       </div>
+    <hr />
+  </div>
+
+  <div class="manage_table">
+    <table class="data__table manage">
+      <tr class="table__header">
+        <td>Date</td>
+        <td>Time</td>
+        <td>From</td>
+        <td>To</td>
+        <td>Flight Number</td>
+        <td>Aircraft</td>
+        <td>Economy price</td>
+        <td>business price</td>
+        <td>First class price</td>
+      </tr>
+    </table>
+
+    <div class="table__scroll">
+      <table class="data__table manage">
+        <manageBodyTableEl v-for="dt in bodyData" v-bind:key="dt.shedule_id" v-bind:dt="dt"/>
+      </table>
     </div>
+  </div>
+
+  <div class="manage__flight__footer">
+    <button class="btn" @click="showCancelFlightModal">Cancel Flight</button>
+    <CancelFlightModal v-model:ClFModalShow="cancelFlightModalVisible"></CancelFlightModal>
+
+    <button class="btn" @click="showConfirmFlightModal">Confirm Flight</button>
+    <ConfirmFlightModal v-model:CfmFModalShow="confirmFlightModalVisible"></ConfirmFlightModal>
+
+    <button class="btn" @click="showEditFlightModal">Edit Flight</button>
+    <EditFlightModal v-model:EFModalShow="editFlightModalVisible"></EditFlightModal>
+  </div>
 </template>
 
 <script>
@@ -205,45 +204,40 @@ export default {
 </script>
 
 <style scoped>
-   h3 {
-        margin-bottom: 25px;
-    }
-    .manage_table {
-        padding-top: 50px;
-        width: 1200px;
-        margin: 0 auto;
-    }
-    .first_block {
-        padding-top: 10px;
-        margin-bottom: 60px;
-    }
-    .second_block {
-        margin-bottom: 10px;
-    }
-    .manage__flight__header {
-        width: 1200px;
-        margin: 0 auto;
-        font-size: 20px;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
-    .header_params_block {
-        display: flex;
-        justify-content: space-between;
-    }
-    .manage__flight__footer {
-        padding-top: 50px;
-        width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-    }
-    .left_btns {
-        width: 550px;
-        display: flex;
-        justify-content: space-between;
-    }
-    button {
-        font-size: 16px;
-        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    }
+  h3 {
+    margin-bottom: 1rem;
+  }
+
+  .manage_table {
+    width: 1200px;
+    margin: 0 auto;
+    margin-bottom: 2.5rem;
+  }
+
+  .header_params_block {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 1.5rem 0;
+
+    font-size: 1.05rem;
+  }
+
+  .manage__flight__header {
+      width: 1200px;
+      margin: 0 auto;
+      margin-bottom: 2rem;
+
+      font-size: 1.3rem;
+      font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+
+  .manage__flight__footer {
+      width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+  }
+
 </style>

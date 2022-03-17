@@ -27,7 +27,12 @@ export default {
 
         text-align: center;
     }
+
+  .user_data-table_element:nth-child(even) {
+    background: #ddd;
+  }
+
     .user_data-table_element td {
-      padding: 0.25rem 0;
+        padding: 0.25rem 0;
     }
 </style>

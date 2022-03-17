@@ -1,15 +1,17 @@
 <template>
-  <div class="LoginForm">
-    <form v-on:submit.prevent="takeUserData">
-      <div>
-        <span>Login</span><input type="text" placeholder="Login" v-model="email">
-      </div>
-      <div>
-        <span>Password</span><input type="password" placeholder="Password" v-model="password">
-      </div>
-          <button class="Submit-btn">Submit</button>
-    </form>
-  </div>
+  <form v-on:submit.prevent="takeUserData">
+    <div class="form__element">
+      <input class="user__info__input" type="text" placeholder="Login" v-model="email">
+    </div>
+
+    <div class="form__element">
+      <input class="user__info__input" type="password" placeholder="Password" v-model="password">
+    </div>
+
+    <div class="buttons">
+      <button class="btn Submit-btn">Submit</button>
+    </div>
+  </form>
 </template>
 
 <script>
@@ -47,24 +49,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-  form {
-    width: 400px;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  }
-  form div {
-    margin-top: 10px;
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 30px;
-  }
-  form div input{
-    padding: 2px 10px ;
-  }
-  form button {
-      display: block;
-      width: 100px;
-      margin: auto;
-  }
-</style>

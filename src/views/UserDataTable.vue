@@ -9,8 +9,12 @@
         <td>Email Address</td>
         <td>Office</td>
       </tr>
-      <UserDataTableElement v-for="dt in data" v-bind:key="dt.user_id" v-bind:dt="dt"></UserDataTableElement>
     </table>
+    <div class="table__scroll">
+      <table class="data__table">
+        <UserDataTableElement v-for="dt in data" v-bind:key="dt.user_id" v-bind:dt="dt"></UserDataTableElement>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -29,27 +33,42 @@ export default {
 </script>
 
 <style>
-.user__data {
-       padding: 0 1rem;
-       font-size: 1.2rem;
-    }
-    .data__table {
-        width: 100%;
-        text-align: center;
-        border-collapse: collapse;
-    }
+   .user__data {
+      padding: 0 1rem;
+      font-size: 1.2rem;
+   }
 
-    .data__table td {
-        min-width: 7rem;
-    }
+   .data__table {
+      width: 100%;
 
-    .table__header {
-      font-weight: bold;
-    }
+      text-align: center;
+      border-collapse: collapse;
+   }
 
-    .table__header td {
-      padding: 0.3rem 0;
+   .data__table td {
+   min-width: 250px;
+   }
 
-      border: 1px solid black;
-    }
+   .data__table.manage td {
+   min-width: 100px;
+   }
+
+   .table__header {
+   font-weight: bold;
+   }
+
+   .table__header td {
+   padding: 0.3rem 0;
+
+   border: 1px solid black;
+   }
+
+   .table__scroll {
+   max-height: 600px;
+
+   border: 1px solid black;
+   border-top: none;
+
+   overflow-y: auto;
+   }
 </style>

@@ -5,6 +5,8 @@ import AboutView from '../views/About.vue'
 import UserView from '../views/User.vue'
 import AdminView from '../views/AdminWindow.vue'
 import ManageFlight from '../views/ManageFlight.vue'
+import SearchFlights from '../views/SearchFlights.vue'
+import BookingConformation from '../views/BookingConformation.vue'
 
 const routes = [
   {
@@ -32,6 +34,16 @@ const routes = [
     path: '/manageFlight',
     name: 'manageFlight',
     component: ManageFlight
+  },
+  {
+    path: '/searchFlights',
+    name: 'searchFlights',
+    component: SearchFlights
+  },
+  {
+    path: '/bookingConformation',
+    name: 'bookingConformation',
+    component: BookingConformation
   }
 ]
 

@@ -3,10 +3,12 @@
         <div class="btnsBlock">
             <button class="btn addUserBtn" @click="showAddUserModal">Add User</button>
             <AddUserModal v-model:show="addUserModalVisible"></AddUserModal>
+            <button class="btn" @click="ManageFlightRedirect">Manage Flight</button>
+            <button class="btn" @click="SearchFlightsRedirect">Search Flights</button>
             <button class="btn exitBtn" @click="adminLogout">Exit</button>
-            <button @click="ManageFlightRedirect">Manage Flight</button>
         </div>
-        <div class="dataSort">
+
+        <div class="offices">
             <span class="text">Office:</span>
             <select class="select" v-model="office">
                 <option>All offices</option>
@@ -17,22 +19,22 @@
                 <option>Riyadh</option>
             </select>
 
-            <button class="button" @click="showInOffice">Show in Office</button>
+            <button class="btn" @click="showInOffice">Show in Office</button>
 
-            <span class="text">Access Type</span>
+            <span class="text">Access Type:</span>
             <select class="select" v-model="access">
                 <option>Any</option>
                 <option>Granted</option>
                 <option>Banned</option>
             </select>
 
-            <button class="button" @click="showByAccess">Show by access</button>
+            <button class="btn" @click="showByAccess">Show by access</button>
         </div>
-        <div class="user__management">
-          <button class="button change__role" @click="showEditRoleModal">Change Role</button>
-          <EditRoleModal v-model:appear="editRoleModalVisible"></EditRoleModal>
 
-          <button class="button login__status" @click="showAbleUserModal">Enable/Disable Login</button>
+        <div class="user__management">
+          <button class="btn change__role" @click="showEditRoleModal">Change Role</button>
+          <EditRoleModal v-model:appear="editRoleModalVisible"></EditRoleModal>
+          <button class="btn login__status" @click="showAbleUserModal">Enable/Disable Login</button>
           <AbleUserModal v-model:comeUp="ableUserModalVisible"></AbleUserModal>
         </div>
         <Table v-bind:data="users"></Table>
@@ -108,6 +110,9 @@ export default {
     ManageFlightRedirect () {
       this.$router.push({ name: 'manageFlight' })
     },
+    SearchFlightsRedirect () {
+      this.$router.push({ name: 'searchFlights' })
+    },
     showInOffice () {
       const usersInOffice = []
       if (this.office !== 'All offices') {
@@ -146,56 +151,41 @@ export default {
 
 <style scoped>
     .btnsBlock {
-      margin-bottom: 0.5rem;
-      padding: 1rem 1rem 0.5rem;
+      margin-bottom: 2rem;
+      padding: 1.5rem .5rem;
       border-bottom: 0.1rem solid black;
     }
-    .btn {
-      padding: 0;
-      margin-right: 1rem;
-      border: none;
-      background: transparent;
-      font-size: 1rem;
+
+    .btnsBlock > .btn {
+      margin-right: 2rem;
     }
-    .btn:hover {
-      cursor: pointer;
-      text-decoration: underline;
-    }
-    .dataSort {
+
+    .offices {
       display: flex;
-      justify-content: space-evenly;
+      justify-content: space-around;
     }
+
     .text {
       font-size: 1.5rem;
       padding: 0 1rem;
     }
+
     .select {
       width: 10rem;
       font-size: 1.2rem;
     }
+
     .user__management {
       margin-bottom: 1rem;
       padding: 1rem;
       display: flex;
       justify-content: space-around;
     }
-    .button {
-      padding: 0.2rem 0.5rem;
-      background: none;
-      border: 0.2rem solid black;
-      font-size: 1rem;
-      transition: background 1s, border 1s;
-    }
-    .button:hover {
-      border: 0.2rem solid rgba(0, 0, 0, 0.2);
-      cursor: pointer;
-    }
-    .button:first-child {
-      margin-right: 1rem;
-    }
+
     .change__role:hover {
       background: rgb(147, 245, 147);
     }
+
     .login__status:hover {
       background: rgb(253, 132, 132);
     }

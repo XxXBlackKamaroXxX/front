@@ -8,8 +8,12 @@
                 <td>Time spent on system</td>
                 <td>Unsuccessful logout reason</td>
             </tr>
-            <UserInfoTableElement v-for="info in log" v-bind:key="info.user_id" v-bind:info="info"></UserInfoTableElement>
         </table>
+        <div class="table__scroll">
+          <table class="data__table">
+            <UserInfoTableElement v-for="info in log" v-bind:key="info.user_id" v-bind:info="info"></UserInfoTableElement>
+          </table>
+        </div>
     </div>
 </template>
 
@@ -27,23 +31,6 @@ export default {
 }
 </script>
 
-<style scoped>
-    .user-table {
-        padding: 1rem 2rem;
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 1.25rem;
-    }
-    .user-table_element {
-        padding: 0.5rem 0.5rem;
-        display: flex;
-        justify-content: space-between;
-        background-color: rgb(192, 170, 170);
-        border-radius: 1rem;
-    }
-    .user-table_element p {
-        min-width: 5rem;
-    }
-    .user-table_element p:first-child {
-        min-width: 4rem;
-    }
+<style>
+
 </style>
