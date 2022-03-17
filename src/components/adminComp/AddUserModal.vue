@@ -1,7 +1,7 @@
 <template>
   <div class="modal" v-if="show">
     <div class="modal__content">
-      <form @submit.prevent="addUser">
+      <form @submit="addUser">
         <div class="form__element">
           <span>Email address</span> <input class="user__info__input" type="email" placeholder="Email" v-model="email">
         </div>

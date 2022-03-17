@@ -6,20 +6,32 @@
             <button class="btn exitBtn" @click="adminLogout">Exit</button>
             <button @click="ManageFlightRedirect">Manage Flight</button>
         </div>
-        <div class="offices">
+        <div class="dataSort">
             <span class="text">Office:</span>
-            <select class="select">
+            <select class="select" v-model="office">
                 <option>All offices</option>
-                <option>Abu Dhabi</option>
+                <option>Abu dhabi</option>
                 <option>Cairo</option>
                 <option>Bahrain</option>
                 <option>Doha</option>
                 <option>Riyadh</option>
             </select>
+
+            <button class="button" @click="showInOffice">Show in Office</button>
+
+            <span class="text">Access Type</span>
+            <select class="select" v-model="access">
+                <option>Any</option>
+                <option>Granted</option>
+                <option>Banned</option>
+            </select>
+
+            <button class="button" @click="showByAccess">Show by access</button>
         </div>
         <div class="user__management">
           <button class="button change__role" @click="showEditRoleModal">Change Role</button>
           <EditRoleModal v-model:appear="editRoleModalVisible"></EditRoleModal>
+
           <button class="button login__status" @click="showAbleUserModal">Enable/Disable Login</button>
           <AbleUserModal v-model:comeUp="ableUserModalVisible"></AbleUserModal>
         </div>
@@ -44,9 +56,12 @@ export default {
     return {
       user: null,
       users: null,
+      usersData: null,
       addUserModalVisible: false,
       editRoleModalVisible: false,
-      ableUserModalVisible: false
+      ableUserModalVisible: false,
+      office: 'All offices',
+      access: 'Any'
     }
   },
   async mounted () {
@@ -54,13 +69,15 @@ export default {
       token: localStorage.getItem('Token')
     })
     this.users = users.data.allUsers
+    console.log(this.users)
+    this.usersData = users.data.allUsers
     this.user = users.data.user
     if (this.users) {
       for (let i = 0; i < this.users.length; ++i) {
         const now = new Date()
         const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
         const birthday = this.users[i].birthdate.split('-')
-        const dob = new Date(birthday[0], birthday[1] - 1, birthday[2])
+        const dob = new Date(birthday[0], birthday[1] - 1, birthday[2][0] * 10 + birthday[2][1])
         const dobnow = new Date(today.getFullYear(), dob.getMonth(), dob.getDate())
         this.users[i].age = today.getFullYear() - dob.getFullYear()
         if (today < dobnow) {
@@ -90,6 +107,38 @@ export default {
     },
     ManageFlightRedirect () {
       this.$router.push({ name: 'manageFlight' })
+    },
+    showInOffice () {
+      const usersInOffice = []
+      if (this.office !== 'All offices') {
+        for (let i = 0; i < this.usersData.length; ++i) {
+          if (this.usersData[i].title === this.office) {
+            usersInOffice.push(this.usersData[i])
+          }
+        }
+        this.users = usersInOffice
+      } else {
+        this.users = this.usersData
+      }
+    },
+    showByAccess () {
+      const usersAccess = []
+      if (this.access !== 'Any') {
+        let accessType
+        if (this.access === 'Banned') {
+          accessType = 0
+        } else {
+          accessType = 1
+        }
+        for (let i = 0; i < this.usersData.length; ++i) {
+          if (this.usersData[i].active === accessType) {
+            usersAccess.push(this.usersData[i])
+          }
+        }
+        this.users = usersAccess
+      } else {
+        this.users = this.usersData
+      }
     }
   }
 }
@@ -112,9 +161,9 @@ export default {
       cursor: pointer;
       text-decoration: underline;
     }
-    .offices {
+    .dataSort {
       display: flex;
-      justify-content: center;
+      justify-content: space-evenly;
     }
     .text {
       font-size: 1.5rem;
