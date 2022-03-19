@@ -5,7 +5,7 @@
         <td>{{dt.departure_airport.iata}}</td>
         <td>{{dt.arrival_airport.iata}}</td>
         <td>{{dt.shedule_id}}</td>
-        <td></td>
+        <td>{{dt.aircraft_name}}</td>
         <td>{{dt.eco_price}}</td>
         <td>{{parseInt(dt.eco_price * 1.35)}}</td>
         <td>{{parseInt(dt.eco_price * 1.35 * 1.3)}}</td>

@@ -219,10 +219,10 @@
     </div>
 
     <div class="booking">
-      <form class="booking__form no__border">
+      <form class="booking__form no__border" @submit.prevent>
         <div class="data__selectors">
           <div class="data__selectors__item">
-            <button class="btn">&orarr;Back to search for flights</button>
+            <button class="btn" @click="back">&orarr;Back to search for flights</button>
           </div>
 
           <div class="data__selectors__item">
@@ -250,6 +250,9 @@ export default {
     }
   },
   methods: {
+    back () {
+      this.$router.back()
+    },
     showBookingModal () {
       this.bookingModalVisible = true
     }

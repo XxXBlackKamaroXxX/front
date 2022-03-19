@@ -204,6 +204,14 @@ export default {
     color: #f79420;
   }
 
+  .radio:nth-of-type(3) .label:hover {
+    color: green;
+  }
+
+  .radio:nth-of-type(3) input[type = "radio"]:focus + label {
+    color: green;
+  }
+
   .buttons {
     display: flex;
     justify-content: space-around;

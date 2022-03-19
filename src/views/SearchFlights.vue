@@ -9,36 +9,26 @@
                 <div class="data__selectors__item">
                 From
                 <select class="user__info__input select border">
-                    <option>Select office</option>
-                    <option>Abu Dhabi</option>
-                    <option>Cairo</option>
-                    <option>Bahrain</option>
-                    <option>Doha</option>
-                    <option>Riyadh</option>
+                  <option>Select airport</option>
+                  <option v-for="airport in headerData" v-bind:key="airport.airport_id">{{airport.iata}}</option>
                 </select>
                 </div>
 
                 <div class="data__selectors__item">
                 To
                 <select class="user__info__input select border">
-                    <option>Select office</option>
-                    <option>Abu Dhabi</option>
-                    <option>Cairo</option>
-                    <option>Bahrain</option>
-                    <option>Doha</option>
-                    <option>Riyadh</option>
+                    <option>Select airport</option>
+                    <option v-for="airport in headerData" v-bind:key="airport.airport_id">{{airport.iata}}</option>
                 </select>
                 </div>
 
                 <div class="data__selectors__item">
                 Cabin
                 <select class="user__info__input select border">
-                    <option>Select office</option>
-                    <option>Abu Dhabi</option>
-                    <option>Cairo</option>
-                    <option>Bahrain</option>
-                    <option>Doha</option>
-                    <option>Riyadh</option>
+                  <option>Select class</option>
+                  <option>Economy</option>
+                  <option>Business</option>
+                  <option>First class</option>
                 </select>
                 </div>
             </div>
@@ -249,12 +239,13 @@
           <button class="btn" @click="BookingRedirect">&#10004;Book</button>
         </div>
       </form>
-      <button class="btn">&#9746;Exit</button>
+      <button class="btn" @click="back">&#9746;Exit</button>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'SearchFlights',
@@ -262,10 +253,39 @@ export default {
     return {
       flightType: '',
       displayOutboundData: '',
-      displayReturnData: ''
+      displayReturnData: '',
+      bodyData: null,
+      headerData: null,
+      allShedules: null,
+      confObj: null
+    }
+  },
+  async mounted () {
+    const manageFlightData = await axios.post('http://localhost:3000/GetManageFlightData', { token: localStorage.getItem('Token') })
+    if (manageFlightData.data.isManageFlightDataTaken) {
+      const tempArr = manageFlightData.data.manageFlightData
+      tempArr.sort(function (first, second) {
+        const res = new Date(first.shedule_date.split('T')[0] + ' ' + first.shedule_time.split(':')[0] + ':' + first.shedule_time.split(':')[1]) - new Date(second.shedule_date.split('T')[0] + ' ' + second.shedule_time.split(':')[0] + ':' + second.shedule_time.split(':')[1])
+        return res
+      })
+      this.bodyData = tempArr
+      this.allShedules = manageFlightData.data.manageFlightData
+      console.log(manageFlightData)
+    } else {
+      console.log(manageFlightData)
+    }
+    const airportData = await axios.post('http://localhost:3000/GetManageAirports', { token: localStorage.getItem('Token') })
+    if (airportData.data.isAirportsTaken) {
+      this.headerData = airportData.data.airports
+      console.log(airportData)
+    } else {
+      console.log(airportData)
     }
   },
   methods: {
+    back () {
+      this.$router.back()
+    },
     BookingRedirect () {
       this.$router.push({ name: 'bookingConformation' })
     }

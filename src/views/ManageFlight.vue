@@ -1,6 +1,11 @@
 <template>
   <div class="manage__flight__header">
-      <h3>Filters</h3>
+      <div class="flex">
+        <h3>Filters</h3>
+        <button class="btn managing" @click="showPreBookModal">&#10004;Book flight</button>
+        <PreBookModal v-model:PreBookModalShow="preBookModalVisible"></PreBookModal>
+        <button class="btn managing" @click="back">Back</button>
+      </div>
 
       <hr />
 
@@ -78,6 +83,7 @@
 
 <script>
 import manageBodyTableEl from '../components/manageFlight/manageBodyTableEl.vue'
+import PreBookModal from '../components/manageFlight/PreBookModal.vue'
 import CancelFlightModal from '../components/manageFlight/CancelFlightModal.vue'
 import ConfirmFlightModal from '../components/manageFlight/ConfirmFlightModal.vue'
 import EditFlightModal from '../components/manageFlight/EditFlightModal.vue'
@@ -87,6 +93,7 @@ export default {
   name: 'ManageFlight',
   components: {
     manageBodyTableEl,
+    PreBookModal,
     CancelFlightModal,
     ConfirmFlightModal,
     EditFlightModal
@@ -97,6 +104,7 @@ export default {
       headerData: null,
       allShedules: null,
       confObj: null,
+      preBookModalVisible: null,
       cancelFlightModalVisible: false,
       confirmFlightModalVisible: false,
       editFlightModalVisible: false
@@ -123,6 +131,12 @@ export default {
     }
   },
   methods: {
+    back () {
+      this.$router.back()
+    },
+    showPreBookModal () {
+      this.preBookModalVisible = true
+    },
     showCancelFlightModal () {
       this.cancelFlightModalVisible = true
     },
@@ -204,6 +218,16 @@ export default {
 </script>
 
 <style scoped>
+  .flex {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .managing {
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+  }
+
   h3 {
     margin-bottom: 1rem;
   }

@@ -2,7 +2,7 @@
   <div class="modal" v-if="BookModalShow">
     <div class="modal__content">
       <form>
-        <div class="form__element">
+        <div>
           Total amount: <span>[xxx]</span>
         </div>
 
