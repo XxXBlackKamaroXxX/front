@@ -3,7 +3,7 @@
     <div class="modal__content">
       <form>
         <div>
-          Total amount: <span>[xxx]</span>
+          Total amount: <span>{{ totalPrice }}</span>
         </div>
 
         Paid using:
@@ -40,6 +40,11 @@ export default {
     BookModalShow: {
       type: Boolean,
       default: false
+    }
+  },
+  data () {
+    return {
+      totalPrice: Number(this.$route.params.toPrice) + Number(this.$route.params.backPrice)
     }
   },
   methods: {

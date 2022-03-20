@@ -27,7 +27,7 @@
         </div>
 
         <div class="buttons">
-          <button class="btn save">Confirm</button>
+          <button class="btn save"  @click.prevent="confirmFlightClick">Confirm</button>
           <button class="btn cancel" @click.prevent="hide">Close</button>
         </div>
       </form>
@@ -36,6 +36,9 @@
 </template>
 
 <script>
+import axios from 'axios'
+
+const DEFAULT_CONFIRM_FLIGHT_VALUE = 1
 
 export default {
   name: 'ConfirmFlightModal',
@@ -53,6 +56,36 @@ export default {
       to: '',
       flightNumber: '',
       aircraftNumber: ''
+    }
+  },
+  async confirmFlightClick () {
+    if (this.from && this.date && this.time && this.to && this.flightNumber && this.aircraftNumber) {
+      const objectToConfirmFlight = {
+        date: this.date,
+        time: this.time,
+        from: this.from,
+        to: this.to,
+        flightNumber: this.flightNumber,
+        aircraftNumber: this.aircraftNumber
+      }
+      const resultOfConfirmFlight = await axios.post('http://localhost:3000/SheduleEdit', {
+        token: localStorage.getItem('Token'),
+        objectToCancelFlight: objectToConfirmFlight,
+        num: DEFAULT_CONFIRM_FLIGHT_VALUE
+      })
+      this.date = ''
+      this.time = ''
+      this.from = ''
+      this.to = ''
+      this.flightNumber = ''
+      this.aircraftNumber = ''
+      if (resultOfConfirmFlight.data.isSheduleEdited) {
+        console.log('the shedule was updated')
+      } else {
+        console.log('the shedule was not updated')
+      }
+    } else {
+      console.log('no data')
     }
   },
   methods: {

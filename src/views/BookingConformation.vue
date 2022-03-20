@@ -6,23 +6,23 @@
       </div>
       <div class="booking__details">
         <div class="data">
-          From: <span class="user__booking__data">CAI</span>
+          From: <span class="user__booking__data">{{ $route.params.from }}</span>
         </div>
 
         <div class="data">
-          To: <span class="user__booking__data">AUH</span>
+          To: <span class="user__booking__data">{{ $route.params.to }}</span>
         </div>
 
         <div class="data">
-          Cabin Type: <span class="user__booking__data">Economy</span>
+          Cabin Type: <span class="user__booking__data">{{ $route.params.toCabinType }}</span>
         </div>
 
         <div class="data">
-          Date: <span class="user__booking__data">11/10/2017</span>
+          Date: <span class="user__booking__data">{{ toDateTransformed }}</span>
         </div>
 
         <div class="data">
-          Flight Number: <span class="user__booking__data">1908</span>
+          Flight Number: <span class="user__booking__data">{{ $route.params.toFlightNumber }}</span>
         </div>
       </div>
     </div>
@@ -33,23 +33,23 @@
       </div>
       <div class="booking__details">
         <div class="data">
-          From: <span class="user__booking__data">AUH</span>
+          From: <span class="user__booking__data">{{ $route.params.to }}</span>
         </div>
 
         <div class="data">
-          To: <span class="user__booking__data">CAI</span>
+          To: <span class="user__booking__data">{{ $route.params.from }}</span>
         </div>
 
         <div class="data">
-          Cabin Type: <span class="user__booking__data">Economy</span>
+          Cabin Type: <span class="user__booking__data">{{ $route.params.backCabinType }}</span>
         </div>
 
         <div class="data">
-          Date: <span class="user__booking__data">11/15/2017</span>
+          Date: <span class="user__booking__data">{{ backDateTransformed }}</span>
         </div>
 
         <div class="data">
-          Flight Number: <span class="user__booking__data">1907</span>
+          Flight Number: <span class="user__booking__data">{{ $route.params.backFlightNumber }}</span>
         </div>
       </div>
     </div>
@@ -62,41 +62,37 @@
           <div class="data__selectors">
             <div class="data__selectors__item">
               Firstname
-              <input class="user__info__input border" type="text" placeholder="Alex">
+              <input class="user__info__input border" type="text" placeholder="Alex" v-model="firstName">
             </div>
 
             <div class="data__selectors__item">
               Lastname
-              <input class="user__info__input border" type="text" placeholder="Nice">
+              <input class="user__info__input border" type="text" placeholder="Nice" v-model="lastName">
             </div>
 
             <div class="data__selectors__item">
               Birthdate
-              <input class="user__info__input" type="date" placeholder="Birthdate" style="border: 1px solid black;margin-left:1rem;">
+              <input class="user__info__input" type="date" placeholder="Birthdate" style="border: 1px solid black;margin-left:1rem;" v-model="birthDate">
             </div>
           </div>
 
           <div class="data__selectors">
             <div class="data__selectors__item">
               Passport Number
-              <input class="user__info__input border" type="text" placeholder="1322 2288">
+              <input class="user__info__input border" type="text" placeholder="1322 2288" v-model="passportNumber">
             </div>
 
             <div class="data__selectors__item">
                 Country
-                <select class="user__info__input select border">
-                    <option>Select office</option>
-                    <option>Abu Dhabi</option>
-                    <option>Cairo</option>
-                    <option>Bahrain</option>
-                    <option>Doha</option>
-                    <option>Riyadh</option>
+                <select class="user__info__input select border" v-model="country">
+                    <option>Select country</option>
+                    <option v-for="country in countryData" v-bind:key="country.country_id">{{country.country_name}}</option>
                 </select>
             </div>
 
             <div class="data__selectors__item">
               Phone
-              <input class="user__info__input border" type="tel" placeholder="+228-222-333-7">
+              <input class="user__info__input border" type="tel" placeholder="+228-222-333-7" v-model="phone">
             </div>
           </div>
 
@@ -237,6 +233,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import BookingModal from '../components/manageFlight/BookFlightModal.vue'
 
 export default {
@@ -246,7 +243,24 @@ export default {
   },
   data () {
     return {
-      bookingModalVisible: false
+      bookingModalVisible: false,
+      toDateTransformed: this.$route.params.toDate.split('-').reverse().join('/'),
+      backDateTransformed: this.$route.params.backDate.split('-').reverse().join('/'),
+      countryData: null,
+      firstName: '',
+      lastName: '',
+      birthDate: '',
+      passportNumber: '',
+      country: '',
+      phone: ''
+    }
+  },
+  async mounted () {
+    const countriesData = await axios.post('http://localhost:3000/GetCountries', { token: localStorage.getItem('Token') })
+    if (countriesData.data.isCountriesTaken) {
+      this.countryData = countriesData.data.countries
+    } else {
+      console.log(countriesData)
     }
   },
   methods: {

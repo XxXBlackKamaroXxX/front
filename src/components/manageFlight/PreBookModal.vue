@@ -12,6 +12,10 @@
         </div>
 
         <div class="form__element">
+          <input class="user__info__input" type="text" placeholder="Cabin Type" v-model="toCabinType">
+        </div>
+
+        <div class="form__element">
           <input class="user__info__input" type="text" placeholder="Price" v-model="toPrice">
         </div>
 
@@ -24,6 +28,10 @@
         </div>
 
         Back
+         <div class="form__element">
+          <input class="user__info__input" type="text" placeholder="Cabin Type" v-model="backCabinType">
+        </div>
+
          <div class="form__element">
           <input class="user__info__input" type="text" placeholder="Price" v-model="backPrice">
         </div>
@@ -58,6 +66,8 @@ export default {
     return {
       from: '',
       to: '',
+      toCabinType: '',
+      backCabinType: '',
       toPrice: '',
       toDate: '',
       toFlightNumber: '',
@@ -68,7 +78,21 @@ export default {
   },
   methods: {
     BookingRedirect () {
-      this.$router.push({ name: 'bookingConformation' })
+      this.$router.push({
+        name: 'bookingConformation',
+        params: {
+          from: this.from,
+          to: this.to,
+          toCabinType: this.toCabinType,
+          backCabinType: this.backCabinType,
+          toPrice: this.toPrice,
+          toDate: this.toDate,
+          toFlightNumber: this.toFlightNumber,
+          backPrice: this.backPrice,
+          backDate: this.backDate,
+          backFlightNumber: this.backFlightNumber
+        }
+      })
     },
     hide () {
       this.$emit('update:PreBookModalShow', false)

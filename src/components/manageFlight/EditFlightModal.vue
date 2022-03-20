@@ -28,7 +28,7 @@
         </div>
 
         <div class="buttons">
-          <button class="btn save">Save</button>
+          <button class="btn save"  @click.prevent="editFlightClick">Save</button>
           <button class="btn cancel" @click.prevent="hide">Close</button>
         </div>
       </form>
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 
 export default {
   name: 'EditFlightModal',
@@ -55,7 +56,33 @@ export default {
       time: '',
       price: ''
     }
-  },
+  }, 
+  async editFlightClick () {
+    const objectToEditFlight = {
+      from: this.from,
+      to: this.to,
+      aircraftNumber: this.aircraftNumber,
+      date: this.date,
+      time: this.time,
+      price: this.price
+    }
+    const resultOfEditFlight = await axios.post('http://localhost:3000/EditFlight', {
+      token: localStorage.getItem('Token'),
+      objectToEditFlight: objectToEditFlight
+    })
+    if (resultOfEditFlight.data.isFlightEdited) {
+      console.log('flight was edited')
+    } else {
+      console.log('flight wasnt edited')
+    }
+    this.from = ''
+    this.to = ''
+    this.date = ''
+    this.aircraftNumber = ''
+    this.time = ''
+    this.price = ''
+  }
+  ,
   methods: {
     hide () {
       this.$emit('update:EFModalShow', false)
